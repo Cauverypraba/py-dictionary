@@ -30,13 +30,11 @@ class PyDictionary:
     #     ''''''
 
     def create_key(self, key):
-        '''check key is string with size 32 chars
-        value should be JSON object with size 16KB.
-        check create is not invoked for existing key
-        else return error'''
-        ''''''
+        '''opening the JSON file and reads the json object into
+        a dictionary'''
         with open('data-store.json') as file:
             data = json.load(file)
+        '''Checking the conditions for keys'''
         if key in data:
             raise Exception("Key already exists")
         if type(key) != str:
@@ -56,6 +54,7 @@ class PyDictionary:
         size_in_kb = size_in_bytes / 1024
         if key not in data:
             raise Exception("Key does not exist")
+        '''check the size of value in kilobytes'''
         if size_in_kb > 16:
             raise ValueError("Size of value should not be greater than 16")
         data[key] = value
