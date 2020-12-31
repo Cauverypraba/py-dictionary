@@ -2,8 +2,9 @@ from threading import Thread
 import time
 from lib.PyDictionary import PyDictionary
 obj = PyDictionary()
-obj.create_key('hello', 5)
+obj.create_key('hello', 3)
 obj.create_key('xyz')
+#obj.create_key(10)
 
 #obj.create_key('xyz')
 #obj.create_key(123)
@@ -11,8 +12,8 @@ obj.insert('hello','Hahaaa')
 obj.insert('xyz', 'hhhh')
 #obj.insert('abc','Hiiii')
 
-time.sleep(7)
-obj.updateTTL('hello', 5)
+time.sleep(4)
+obj.updateTTL('hello', 3)
 print(obj.get('hello'))
 print(obj.get('xyz'))
 #obj.delete('xyz')

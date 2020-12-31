@@ -5,9 +5,9 @@ from threading import Lock
 
 class PyDictionary:
     def __init__(self):
-        file = open("data-store.json", "w+")
-        ''' Write Initial value to file '''
-        json.dump({}, file)
+        # Write Initial value to file
+        with open('data-store.json', 'w') as file:
+            json.dump({}, file)
         self.lock = Lock()
         self.ttlMap = {}
 
@@ -24,7 +24,6 @@ class PyDictionary:
         size_in_gb = file_size / 1000000000
         if(size_in_gb > 1):
             raise Exception("File size should be less than 1GB")
-        print(file_size, size_in_gb)
         #Checking the conditions for keys
         if key in data:
             raise Exception("Key '" + key + "' already exists, please provide Unique key")
@@ -54,10 +53,10 @@ class PyDictionary:
             raise Exception("Key does not exist")
         # Checking whether key is alive
         if not self.__isKeyAlive(key):
-            raise Exception("Key is not alive, please create again")
+            raise Exception("Key is not alive, please update Time-To-Live value")
         # Check the size of value in kilobytes
         if size_in_kb > 16:
-            raise ValueError("Size of value should not be greater than 16")
+            raise ValueError("Size of value should not be greater than 16 KB")
         data[key] = value
         with open('data-store.json', 'w') as file:
             json.dump(data, file)
@@ -72,7 +71,7 @@ class PyDictionary:
             raise Exception("Key does not exist")
         # Checking whether key is alive
         if not self.__isKeyAlive(key):
-            raise Exception("Key is not alive, please create again")
+            raise Exception("Key is not alive, please update Time-To-Live value")
         del data[key]
         with open('data-store.json', 'w') as file:
             json.dump(data, file)
@@ -88,7 +87,7 @@ class PyDictionary:
             raise Exception("Key does not exist")
         # Checking whether key is alive
         if not self.__isKeyAlive(key):
-            raise Exception("Key is not alive, please create again")
+            raise Exception("Key is not alive, please update Time-To-Live value")
         self.lock.release()
         return data[key]
        
@@ -96,7 +95,6 @@ class PyDictionary:
         ''' Returns whether Key is Alive'''
         now = time.time()
         ttlObj = self.ttlMap[key]
-        print(ttlObj)
         if (ttlObj['ttl'] == 0) or (ttlObj['time'] + ttlObj['ttl'] > now):
             return True
         else:
