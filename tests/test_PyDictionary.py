@@ -4,6 +4,47 @@ import unittest
 from lib.PyDictionary import PyDictionary
 
 class TestDictionary(unittest.TestCase):
+    
+    def test_create_key(self):
+        ''' Checks whether key is created in the dictionary'''
+        d = PyDictionary()
+        d.create_key('name')
+        self.assertEqual(d.get('name'), None)
+
+    def test_insert(self):
+        ''' Checks whether value is inserted into key'''
+        d = PyDictionary()
+        d.create_key('name')
+        d.insert('name', 'ram')
+        self.assertEqual(d.get('name'), 'ram')
+
+    def test_delete(self):
+        ''' Checks whether key is deleted'''
+        d = PyDictionary()
+        d.create_key('name')
+        d.insert('name', 'ram')
+        d.delete('name')
+        with self.assertRaises(Exception):
+            res = d.get('name')   
+
+    def test_update_ttl(self):
+        ''' Checks whether Time-To-Live is updated to a key'''
+        d = PyDictionary()
+        d.create_key('name', 3)
+        d.insert('name', 'ram')
+        time.sleep(5)
+        d.updateTTL('name', 10)
+        self.assertEqual(d.get('name'), 'ram')
+
+    def test_multiple_dict(self):
+        ''''''
+        d1 = PyDictionary()
+        d1.create_key('name')
+        d1.insert('name', 'ram')
+        d2 = PyDictionary()
+        d2.create_key('name')
+        d2.insert('name', 'raj')
+        self.assertEqual(d1.get('name'), 'ram')
 
     def test_duplicate_key(self):
         ''' Raises an exception when we try to create a key that already exists'''
@@ -56,15 +97,15 @@ class TestDictionary(unittest.TestCase):
         ''' Checks key exists in the dictionary to read the value of a key'''
         d = PyDictionary()
         with self.assertRaises(Exception):
-            d.get('hii','haii')
+            d.get('hii')
 
     def test_key_timeout(self):
-        ''' Checks whether the key is alive to read a key'''
+        ''' Checks whether the key is alive'''
         d = PyDictionary()
         d.create_key('name', 3)
         time.sleep(5)
         with self.assertRaises(Exception):
-            d.get('none')           
+            d.get('name')           
 
     def test_keyin_dict(self):
         ''' Checks key exists in the dictionary only then Time-To-Live for a key will get updated'''

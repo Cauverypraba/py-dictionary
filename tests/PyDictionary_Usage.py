@@ -16,6 +16,9 @@ time.sleep(4)
 obj.updateTTL('hello', 3)
 print(obj.get('hello'))
 print(obj.get('xyz'))
+
+obj1 = PyDictionary()
+obj1.create_key('welcome')
 #obj.delete('xyz')
 
 # print(obj.create_key('hi'))
