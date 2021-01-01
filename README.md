@@ -3,9 +3,9 @@
 PyDictionary is a python library that acts as a file-based **key-value data store** supporting basic CRD operations. This data store can be instantiated and used as a local storage for single process.
 
 ## Installation
-1. Download the binary/wheel file from [Latest Release](https://cauveryraja.github.io/DSA-Visualiser/). Place it in the project root folder and install using the following command.
+1. Download the wheel file from [Latest Release](https://github.com/Cauverypraba/py-dictionary/releases/tag/v1.0). Place it in the project root folder and install using the following command.
 ```
-pip install filename.whl
+pip install PyDictionary-1.0-py3-none-any.whl
 ```
 2. Import the library and instantiate data store.
 ```
