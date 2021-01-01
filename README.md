@@ -27,4 +27,4 @@ store = PyDictionary()
 **Note**: ```insert```, ```delete```, ```get``` methods work only when the given key is alive. If the key is timed out, update its Time-To-Live value using ```update_ttl``` method.
 
 ## License
-This project is licensed under [MIT License](https://cauveryraja.github.io/DSA-Visualiser/).
+This project is licensed under [MIT License](/LICENSE).
