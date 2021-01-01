@@ -13,7 +13,7 @@ obj.insert('xyz', 'hhhh')
 #obj.insert('abc','Hiiii')
 
 time.sleep(4)
-obj.updateTTL('hello', 3)
+obj.update_ttl('hello', 3)
 print(obj.get('hello'))
 print(obj.get('xyz'))
 

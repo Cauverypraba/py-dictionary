@@ -19,12 +19,12 @@ class PyDictionary:
         for the key'''
         self.lock.acquire()
         data = self.read_file()
-        #checking the size of file in GB    
+        # Checks the size of file in GB    
         file_size = sys.getsizeof(data)
         size_in_gb = file_size / 1000000000
         if(size_in_gb > 1):
             raise Exception("File size should be less than 1GB")
-        #Checking the conditions for keys
+        # Checks the conditions for keys
         if key in data:
             raise Exception("Key '" + key + "' already exists, please provide Unique key")
         if type(key) != str:
@@ -43,16 +43,16 @@ class PyDictionary:
     def insert(self, key, value):
         ''' Inserting value to the key only when size of value is less than 16KB'''
         self.lock.acquire()
-        #insert values to the specified keys
+        # Insert values to the specified keys
         data = self.read_file()
         size_in_bytes = sys.getsizeof(value)
         size_in_kb = size_in_bytes / 1024
         if key not in data:
             raise Exception("Key '" + key + "' does not exist")
-        # Checking whether key is alive
-        if not self.__isKeyAlive(key):
+        # Checks whether key is alive
+        if not self.__is_key_alive(key):
             raise Exception("Key '" + key + "' is not alive, please update Time-To-Live value")
-        # Check the size of value in kilobytes
+        # Checks the size of value in kilobytes
         if size_in_kb > 16:
             raise ValueError("Size of value should not be greater than 16 KB")
         data[key] = value
@@ -65,8 +65,8 @@ class PyDictionary:
         data = self.read_file()
         if key not in data:
             raise Exception("Key '" + key + "' does not exist")
-        # Checking whether key is alive
-        if not self.__isKeyAlive(key):
+        # Checks whether key is alive
+        if not self.__is_key_alive(key):
             raise Exception("Key '" + key + "' is not alive, please update Time-To-Live value")
         del data[key]
         self.write_file(data)
@@ -79,13 +79,13 @@ class PyDictionary:
         data = self.read_file()
         if key not in data:
             raise Exception("Key '" + key + "' does not exist")
-        # Checking whether key is alive
-        if not self.__isKeyAlive(key):
+        # Check whether key is alive
+        if not self.__is_key_alive(key):
             raise Exception("Key '" + key + "' is not alive, please update Time-To-Live value")
         self.lock.release()
         return data[key]
        
-    def __isKeyAlive(self, key):
+    def __is_key_alive(self, key):
         ''' Returns whether Key is Alive'''
         now = time.time()
         ttlObj = self.ttlMap[key]
@@ -94,7 +94,7 @@ class PyDictionary:
         else:
             return False
 
-    def updateTTL(self, key, ttlValue):
+    def update_ttl(self, key, ttlValue):
         ''' Updates Time To Live Value of given key  '''
         self.lock.acquire()
         if key not in self.ttlMap:
@@ -104,13 +104,13 @@ class PyDictionary:
         self.lock.release()
 
     def read_file(self):
-        # Opening the JSON file and reads the json object as a dictionary
+        ''' Opens the JSON file and returns the json object as a dictionary '''
         with open(self.file_name + '.json') as file:
             data = json.load(file)
         return data
 
     def write_file(self, data):
-        # Writes dictionary into JSON file
+        ''' Writes given dictionary into JSON file '''
         with open(self.file_name + '.json', 'w') as file:
             json.dump(data, file)
 

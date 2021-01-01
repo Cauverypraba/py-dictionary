@@ -1,12 +1,11 @@
 from setuptools import find_packages, setup
 
 setup(
-    name='PyStore',
-    # packages = find_packages(include=['PyLibrary']),
+    name='PyDictionary',
     packages=['lib'],
-    version='0.1.0',
-    description='My first Python library',
-    author='Me',
+    version='v1.0',
+    description='A file based data-store library',
+    author='Cauverypraba',
     license='MIT',
     install_requires=[],
     test_suite='tests',

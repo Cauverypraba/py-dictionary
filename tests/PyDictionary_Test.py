@@ -33,11 +33,11 @@ class TestDictionary(unittest.TestCase):
         d.create_key('name', 3)
         d.insert('name', 'ram')
         time.sleep(5)
-        d.updateTTL('name', 10)
+        d.update_ttl('name', 10)
         self.assertEqual(d.get('name'), 'ram')
 
     def test_multiple_dict(self):
-        ''''''
+        ''' Checks multiple instances of dictionary'''
         d1 = PyDictionary()
         d1.create_key('name')
         d1.insert('name', 'ram')
@@ -111,4 +111,4 @@ class TestDictionary(unittest.TestCase):
         ''' Checks key exists in the dictionary only then Time-To-Live for a key will get updated'''
         d = PyDictionary()
         with self.assertRaises(Exception):
-            d.updateTTL('hii', 10)        
+            d.update_ttl('hii', 10)        
